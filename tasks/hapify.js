@@ -8,9 +8,9 @@ module.exports = function (grunt) {
     grunt.registerMultiTask('hapify', 'Start a hapi server', function () {
 
         const options = this.options({
-            server: null,
             plugins: null,
             keepalive: false,
+            server: { debug: false },
             connection: {
                 port: 9090,
                 routes: { cors: true }

@@ -69,7 +69,7 @@ Keep the server alive indefinitely. Note that if this option is enabled, any tas
 
 ### server
 Type: `Object`
-Default: none
+Default: `{ debug: false }`
 
 Options used to initialize the hapi serve (`new Hapi.Server(<server>)`). <br>
 See hapi [server options](http://hapijs.com/api#new-serveroptions) for more info
