@@ -1,0 +1,41 @@
+{
+  "name": "grunt-hapify",
+  "version": "0.1.0",
+  "author": "Gene Diaz <genediazjr@gmail.com> (http://genediazjr.com/)",
+  "description": "Start a hapi server",
+  "keywords": [
+    "gruntplugin",
+    "hapi",
+    "server"
+  ],
+  "license": "MIT",
+  "repository": "git://github.com/genediazjr/grunt-hapify",
+  "bugs": "https://github.com/genediazjr/grunt-hapify/issues",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "test": "lab -c -v -L -a code && grunt"
+  },
+  "files": [
+    "tasks"
+  ],
+  "dependencies": {
+    "hapi": "16.0.x",
+    "glob": "7.1.x",
+    "good": "7.1.x",
+    "good-squeeze": "5.0.x",
+    "good-console": "6.3.x"
+  },
+  "devDependencies": {
+    "grunt": "1.0.x",
+    "grunt-cli": "1.2.x",
+    "coveralls": "2.11.x",
+    "code": "4.0.x",
+    "lab": "11.2.x"
+  },
+  "peerDependencies": {
+    "grunt": ">=0.4.x"
+  }
+}
