@@ -61,34 +61,34 @@ grunt.registerTask('default', ['hapify']);
 
 ## Options
 
-#### keepalive
+### keepalive
 Type: `Boolean`
 Default: `false`
 
 Keep the server alive indefinitely. Note that if this option is enabled, any tasks specified after this task will _never run_. By default, once grunt's tasks have completed, the web server stops. This option changes that behavior.
 
-#### server
+### server
 Type: `Object`
 Default: none
 
 Options used to initialize the hapi serve (`new Hapi.Server(<server>)`). <br>
 See hapi [server options](http://hapijs.com/api#new-serveroptions) for more info
 
-#### connection
+### connection
 Type: `Object`  
 Default: `{ port: 9090, routes: { cors: true } }`
 
 Options used to start a connection (`server.connection(<connection>)`). <br>
 See hapi [connection options](http://hapijs.com/api#serverconnectionoptions) for more info.
 
-#### routes
+### routes
 Type: `Array`
 Default: `{ path: '/', method: 'get', handler: function (req, rep) { return rep('Grunt Hapify'); } }`
 
 Server routes to load on the server (`server.route(<routes>)`). <br>
 See hapi [routes](http://hapijs.com/api#serverrouteoptions) for more info.
 
-#### plugins
+### plugins
 Type: `Array`
 Default: none
 
