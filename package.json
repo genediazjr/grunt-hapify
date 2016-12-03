@@ -1,6 +1,6 @@
 {
   "name": "grunt-hapify",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "author": "Gene Diaz <genediazjr@gmail.com> (http://genediazjr.com/)",
   "description": "Start a hapi server",
   "keywords": [
@@ -18,9 +18,6 @@
   "scripts": {
     "test": "lab -c -v -L -a code && grunt"
   },
-  "files": [
-    "tasks"
-  ],
   "dependencies": {
     "hapi": "16.0.x",
     "glob": "7.1.x",
