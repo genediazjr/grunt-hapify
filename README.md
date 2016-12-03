@@ -90,7 +90,7 @@ See hapi [routes](http://hapijs.com/api#serverrouteoptions) for more info.
 
 ### plugins
 Type: `Array`
-Default: none
+Default: `Good Plugin`
 
 Hapi plugins to load on the server (`server.register(<plugins>)`). <br>
 See hapi [plugins](http://hapijs.com/api#serverregisterplugins-options-callback) for more info.
