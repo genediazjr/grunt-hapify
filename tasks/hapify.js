@@ -39,9 +39,14 @@ module.exports = function (grunt) {
             }]
         });
 
-        const done = this.async();
-        const keepalive = this.flags.keepalive || options.keepalive;
         const server = Hapify(options);
+
+        let done = () => {
+        };
+
+        if (options.keepalive) {
+            done = this.async();
+        }
 
         server.start((err) => {
 
@@ -49,10 +54,7 @@ module.exports = function (grunt) {
                 grunt.fatal(err);
             }
 
-            if (!keepalive) {
-
-                done();
-            }
+            return done();
         });
 
         grunt.log.writeln(`Started hapi server on ${server.info.uri}`);
