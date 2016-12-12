@@ -23,7 +23,7 @@
     "glob": "7.1.x",
     "good": "7.1.x",
     "good-squeeze": "5.0.x",
-    "good-console": "6.3.x"
+    "good-console": "6.2.x"
   },
   "devDependencies": {
     "grunt": "1.0.x",
