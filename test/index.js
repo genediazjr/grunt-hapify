@@ -15,7 +15,7 @@ describe('lib', () => {
     it('returns server without options', (done) => {
 
         const server = Hapify();
-
+console.log(server);
         expect(server).to.be.an.object();
         expect(server.start).to.exist();
 

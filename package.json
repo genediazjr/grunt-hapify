@@ -19,11 +19,12 @@
     "test": "lab -c -v -L -a code && grunt"
   },
   "dependencies": {
-    "hapi": "16.0.x",
     "glob": "7.1.x",
     "good": "7.1.x",
+    "good-console": "6.2.x",
     "good-squeeze": "5.0.x",
-    "good-console": "6.2.x"
+    "hapi": "16.0.x",
+    "inert": "^4.1.0"
   },
   "devDependencies": {
     "grunt": "1.0.x",
