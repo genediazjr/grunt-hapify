@@ -6,8 +6,6 @@ module.exports = {
     method: 'get',
     handler: function (request, reply) {
 
-        return reply({
-            path: 'route2'
-        });
+        return reply('route2');
     }
 };

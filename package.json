@@ -19,12 +19,16 @@
     "test": "lab -c -v -L -a code && grunt"
   },
   "dependencies": {
+    "ejs": "^2.5.6",
     "glob": "7.1.x",
     "good": "7.1.x",
     "good-console": "6.2.x",
     "good-squeeze": "5.0.x",
+    "handlebars": "^4.0.6",
     "hapi": "16.0.x",
-    "inert": "^4.1.0"
+    "inert": "^4.1.0",
+    "jade": "^1.11.0",
+    "vision": "^4.1.1"
   },
   "devDependencies": {
     "grunt": "1.0.x",

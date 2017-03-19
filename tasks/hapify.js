@@ -3,6 +3,8 @@
 const Hapify = require('..');
 const Good = require('good');
 
+const Inert = require('inert');
+const Vision = require('vision');
 
 module.exports = function (grunt) {
 
@@ -15,28 +17,25 @@ module.exports = function (grunt) {
                 port: 9090,
                 routes: { cors: true }
             },
-            plugins: [{
-                register: Good,
-                options: {
-                    reporters: {
-                        console: [{
-                            name: 'Squeeze',
-                            module: 'good-squeeze',
-                            args: [{ log: '*', response: '*' }]
-                        }, {
-                            module: 'good-console'
-                        }, 'stdout']
+            plugins: [
+                Inert,
+                Vision,
+                {
+                    register: Good,
+                    options: {
+                        reporters: {
+                            console: [{
+                                name: 'Squeeze',
+                                module: 'good-squeeze',
+                                args: [{ log: '*', response: '*' }]
+                            }, {
+                                module: 'good-console'
+                            }, 'stdout']
+                        }
                     }
                 }
-            }],
-            routes: [{
-                path: '/',
-                method: 'get',
-                handler: function (req, reply) {
-
-                    return reply('Grunt Hapify');
-                }
-            }]
+            ],
+            routes: []
         });
 
         const server = Hapify(options);
