@@ -32,7 +32,7 @@ describe('lib', () => {
         return done();
     });
 
-    it('can accept functions as plugins config', (done) => {
+    it('accepts functions as plugins config', (done) => {
 
         const plugin = function (server, options, next) {
 
@@ -41,68 +41,109 @@ describe('lib', () => {
 
         plugin.attributes = { name: 'example' };
 
-        const server = Hapify({ plugins: plugin }, 'fn as conf');
+        const server = Hapify({ plugins: plugin });
 
         expect(server).to.be.an.object();
         expect(server.start).to.exist();
+        expect(server.registrations.example).to.exist();
 
-        server.start(() => {
-console.log(server.plugins);
-            expect(server.plugins.example).to.exist();
-            done()
-        }, 100);
-
+        return done();
     });
 
-    it('can accept array of plugins as plugins config', (done) => {
+    it('accepts array of plugins as plugins config', (done) => {
 
-        const plugins = require('test/plugins/plugin1');
+        const plugins = require('./plugins/plugin1');
+
         const server = Hapify({ plugins: plugins });
 
-
         expect(server).to.be.an.object();
         expect(server.start).to.exist();
-        expect(server.plugins.plugin1Mod1).to.exist();
+
+        expect(server.registrations.plugin1Mod1).to.exist();
+        expect(server.registrations.plugin1Mod2).to.exist();
 
         return done();
     });
 
-    it('accepts server routes', (done) => {
+    it('accepts glob filepath string as plugins config', (done) => {
 
-        const server = Hapify({
-            routes: [
-                {
-                    path: '/test1',
-                    method: 'get',
-                    handler: function (req, reply) {
-
-                        return reply('here');
-                    }
-                }
-            ]
-        });
+        const server = Hapify({ plugins: 'test/plugins/*.js' });
 
         expect(server).to.be.an.object();
         expect(server.start).to.exist();
 
-        server.inject({ url: '/test1', method: 'get'}, (response) => {
+        expect(server.registrations.plugin1Mod1).to.exist();
+        expect(server.registrations.plugin1Mod2).to.exist();
+        expect(server.registrations.plugin2).to.exist();
 
-            expect(response.payload).to.equal('here');
+        return done();
+    });
+
+    it('accepts array of glob filepath strings as plugins config', (done) => {
+
+        const server = Hapify({ plugins: ['test/plugins/*.js'] });
+
+        expect(server).to.be.an.object();
+        expect(server.start).to.exist();
+
+        expect(server.registrations.plugin1Mod1).to.exist();
+        expect(server.registrations.plugin1Mod2).to.exist();
+        expect(server.registrations.plugin2).to.exist();
+
+        return done();
+    });
+
+    it('accepts array of routes as routes config', (done) => {
+
+        const routes = require('./routes/route1');
+        const server = Hapify({ routes: routes });
+
+        expect(server).to.be.an.object();
+        expect(server.start).to.exist();
+
+        server.inject({ url: '/route1', method: 'get'}, (response) => {
+
+            expect(response.payload).to.equal('route1');
             return done();
         });
-
     });
 
-    it('accepts server glob routes', (done) => {
+    it('accepts glob filepath string as routes config', (done) => {
 
-        const server = Hapify({
-            routes: ['test/routes/*.js']
-        });
+        const server = Hapify({ routes: 'test/routes/*.js' });
 
         expect(server).to.be.an.object();
         expect(server.start).to.exist();
 
-        return done();
+        server.inject({ url: '/route1', method: 'get'}, (response) => {
+
+            expect(response.payload).to.equal('route1');
+
+            server.inject({ url: '/route2', method: 'get'}, (response) => {
+
+                expect(response.payload).to.equal('route2');
+                return done();
+            });
+        });
+    });
+
+    it('accepts array of glob filepath strings as routes config', (done) => {
+
+        const server = Hapify({ routes: ['test/routes/*.js'] });
+
+        expect(server).to.be.an.object();
+        expect(server.start).to.exist();
+
+        server.inject({ url: '/route1', method: 'get'}, (response) => {
+
+            expect(response.payload).to.equal('route1');
+
+            server.inject({ url: '/route2', method: 'get'}, (response) => {
+
+                expect(response.payload).to.equal('route2');
+                return done();
+            });
+        });
     });
 
     it('serves static files from public using inert', (done) => {
@@ -128,7 +169,9 @@ console.log(server.plugins);
         const server = Hapify({
             views: {
 
-                path: `${process.cwd()}/templates`
+                handlebars: {
+                    path: `${process.cwd()}/templates`
+                }
             },
             routes: [
                 {
@@ -153,7 +196,7 @@ console.log(server.plugins);
         }, (response) => {
 
             expect(response.statusCode).to.equal(200);
-            expect(response.payload).to.match(/slim\-shady/gi);
+            expect(response.payload).to.match(/slim-shady/gi);
             done();
         });
     });
