@@ -63,4 +63,6 @@ server.start((err) => {
 
         server.log(response.payload);
     });
+
+    server.log('Test server started');
 });

@@ -19,6 +19,7 @@
     "test": "lab -c -v -L -a code && grunt"
   },
   "dependencies": {
+    "blipp": "^2.3.0",
     "ejs": "^2.5.6",
     "glob": "7.1.x",
     "good": "7.1.x",
@@ -32,7 +33,6 @@
     "visionary": "^6.0.2"
   },
   "devDependencies": {
-    "blipp": "^2.3.0",
     "code": "4.0.x",
     "coveralls": "2.11.x",
     "grunt": "1.0.x",
