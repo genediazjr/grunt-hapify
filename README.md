@@ -25,12 +25,38 @@ grunt.initConfig({
         server: {
             options: {
                 keepalive: true, // set to false if in conjunction with watch
+
+                // Override default port / Hapi `connection` object
                 connection: {
                     port: 9002
                 },
+
+                // Override default plugin options
                 visionary: {
-                    path: '/path/to/public/assets'
+                    engine: {
+                        tag: 'hapi-riot'
+                    }
+                    path: '/path/to/views'
                 },
+
+                // Override default plugin options
+                good: {
+
+                    myHTTPReporter: [{
+                        module: 'good-squeeze',
+                        name: 'Squeeze',
+                        args: [{ error: '*' }]
+                    }, {
+                        module: 'good-http',
+                        args: ['http://prod.logs:3000', {
+                            wreck: {
+                                headers: { 'x-api-key': 12345 }
+                            }
+                        }]
+                    }]
+                },
+
+                // Add new routes
                 routes: [
 
                     // File path accepted
@@ -45,6 +71,8 @@ grunt.initConfig({
                     // Array of path objects accepted
                     [{ path: '/come', method: 'get', handler: (request, reply) => { reply('some'); }}]
                 ],
+
+                // Add new plugins
                 plugins: [
 
                     // File path accepted
@@ -66,6 +94,13 @@ grunt.initConfig({
 
 grunt.registerTask('default', ['hapify']);
 ```
+
+### Defaults
+
+Default plugins are Good, Visionary, Blipp, and Inert.
+This gives us routes logging support, template rendering support, and static file serving.
+Default plugin configs can be overwritten my passing: `{ nameOfDefaultPlugin: { ..config } }`
+For example: `{ visionary: { path: './assets' } }`
 
 ## Options
 
