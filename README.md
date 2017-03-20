@@ -28,28 +28,36 @@ grunt.initConfig({
                 connection: {
                     port: 9002
                 },
+                visionary: {
+                    path: '/path/to/public/assets'
+                },
                 routes: [
+
+                    // File path accepted
                     'routes/*.js',
-                    {
-                        path: '/foo',
-                        method: 'get',
-                        handler: function (request, reply) {
 
-                            return reply('bar');
-                        }
-                    },
-                    [
-                        {
-                            path: '/come',
-                            method: 'get',
-                            handler: function (request, reply) {
+                    // Array of file paths accepted
+                    ['routes/*.js', 'more-routes/**/*.js'],
 
-                                return reply({
-                                    get: 'some'
-                                });
-                            }
-                        }
-                    ]
+                    // Path object accepted
+                    { path: '/foo', method: 'get', handler: (request, reply) => { reply('bar'); }},
+
+                    // Array of path objects accepted
+                    [{ path: '/come', method: 'get', handler: (request, reply) => { reply('some'); }}]
+                ],
+                plugins: [
+
+                    // File path accepted
+                    'plugins/*.js',
+
+                    // Array of file paths accepted
+                    ['plugins/*.js', 'more-plugins/**/*.js'],
+
+                    // Plugin function accepted
+                    require('Nes'),
+
+                    // Array of path objects accepted
+                    [require('Joi'), require('hapi-auth-basic')]
                 ]
             }
         }
@@ -75,7 +83,7 @@ Options used to initialize the hapi serve (`new Hapi.Server(<server>)`). <br>
 See hapi [server options](http://hapijs.com/api#new-serveroptions) for more info
 
 ### connection
-Type: `Object`  
+Type: `Object`
 Default: `{ port: 9090, routes: { cors: true } }`
 
 Options used to start a connection (`server.connection(<connection>)`). <br>
@@ -96,9 +104,11 @@ Hapi plugins to load on the server (`server.register(<plugins>)`). <br>
 See hapi [plugins](http://hapijs.com/api#serverregisterplugins-options-callback) for more info.
 
 ## Todo
+- Support Livereload
+
+## Done
 - Serve static files using inert
 - Render templates using vision
-- Support Livereload
 
 ## Contributing
 * Include 100% test coverage.

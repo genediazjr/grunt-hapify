@@ -2,6 +2,7 @@
 
 const Hapify = require('..');
 
+const Path = require('path');
 const Code = require('code');
 const Lab = require('lab');
 
@@ -163,41 +164,49 @@ describe('lib', () => {
         });
     });
 
-    it('serves handlebar templates', (done) => {
+    [
+        { tmpl: 'handlebars', ext: 'html' },
+        { tmpl: 'jade', ext: 'jade' },
+        { tmpl: 'ejs', ext: 'ejs' }
+    ].forEach((tmpltest) => {
 
-        // Merge default config
-        const server = Hapify({
-            views: {
+        it(`serves ${tmpltest.tmpl} templates`, (done) => {
 
-                handlebars: {
-                    path: `${process.cwd()}/templates`
-                }
-            },
-            routes: [
-                {
-                    method: 'get',
-                    path: '/handlebars',
-                    handler: (request, reply) => {
+            // Merge default config
+            const server = Hapify({
+                visionary: {
+                    path: Path.resolve(process.cwd(), 'test/templates')
+                },
+                routes: [
+                    {
+                        method: 'get',
+                        path: `/${tmpltest.tmpl}`,
+                        handler: (request, reply) => {
 
-                        reply.view('handlebars', {
-                            myName: 'slim'
-                        });
+                            reply.view(`index.${tmpltest.ext}`, {
+                                myName: 'slim'
+                            });
+                        }
                     }
-                }
-            ]
-        });
+                ]
+            });
 
-        expect(server).to.be.an.object();
-        expect(server.start).to.exist();
+            expect(server).to.be.an.object();
+            expect(server.start).to.exist();
 
-        server.inject({
-            url: '/handlebars',
-            method: 'get'
-        }, (response) => {
+            server.start((err) => {
 
-            expect(response.statusCode).to.equal(200);
-            expect(response.payload).to.match(/slim-shady/gi);
-            done();
+                expect(err).to.not.exist();
+
+                server.inject({ url: `/${tmpltest.tmpl}` }, (response) => {
+
+                    expect(response.statusCode).to.equal(200);
+                    expect(response.payload).to.match(/slim-shady/gi);
+
+                    server.stop();
+                    done();
+                });
+            });
         });
     });
 });

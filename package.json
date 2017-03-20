@@ -28,13 +28,15 @@
     "hapi": "16.0.x",
     "inert": "^4.1.0",
     "jade": "^1.11.0",
-    "vision": "^4.1.1"
+    "vision": "^4.1.1",
+    "visionary": "^6.0.2"
   },
   "devDependencies": {
+    "blipp": "^2.3.0",
+    "code": "4.0.x",
+    "coveralls": "2.11.x",
     "grunt": "1.0.x",
     "grunt-cli": "1.2.x",
-    "coveralls": "2.11.x",
-    "code": "4.0.x",
     "lab": "11.2.x"
   },
   "peerDependencies": {
