@@ -32,7 +32,8 @@ module.exports = function (grunt) {
                                 }
                             }
                         ]
-                    ]
+                    ],
+                    plugins: ['test/plugins/*.js']
                 }
             }
         }
