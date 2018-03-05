@@ -16,7 +16,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "lab -c -v -L -a code && grunt"
+    "test": "lab -c -v -l -L -a code && grunt"
   },
   "dependencies": {
     "blipp": "^2.3.0",
