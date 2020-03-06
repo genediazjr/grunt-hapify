@@ -26,7 +26,7 @@
     "good-console": "6.2.x",
     "good-squeeze": "5.0.x",
     "handlebars": "^4.0.6",
-    "hapi": "16.0.x",
+    "hapi": "18.1.x",
     "inert": "^4.1.0",
     "jade": "^1.11.0",
     "vision": "^4.1.1",
